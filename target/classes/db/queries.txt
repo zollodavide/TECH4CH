@@ -1,0 +1,8 @@
+////////////CREATE VISITORS TABLE////////////////////
+
+CREATE TABLE visitor(id serial not null primary key, 
+					group_id integer,
+					group_size integer,
+					date date,
+					start_time time,
+					end_time time);

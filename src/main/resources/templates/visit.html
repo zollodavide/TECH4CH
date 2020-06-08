@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="bootsnipp.js"></script>
+<script src="bootsnipp.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="/styles.css" rel="stylesheet">
+
+</head>
+<body>
+<div id = "svgcontainer">
+      </div>
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;"
+						data-scroll> <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+				<div class="col-md-12">
+					<h2 class="text-center" th:text="${currentPosition.poi_name}"></h2>
+					<h3 class="text-center" th:text="${'Point of Interest #' + index}"></h3>
+				</div>
+				
+						<div class="text-center" style="padding-bottom: 20px">
+							
+							<form th:action="@{/visit/0}" th:style="${first} ? 'display: none;' : 'display:inline-block;'" >
+								<input src="/images/icons8-undo-64.png" 
+									   style= "margin-right: auto;"
+									   type="image"
+									   title="First" />
+							</form>
+							
+							<form th:action="@{'/visit/' + ${back}}" th:style="${first} ? 'display: none;' : 'display:inline-block; margin-left: 20px;'"  >
+								<input type="image" src="https://img.icons8.com/flat_round/64/000000/circled-left-2--v1.png" 
+									   style="margin-right: auto;"
+									   title="Back"/>
+							</form>
+							
+							<form th:action="@{'/visit/' + ${next}}" th:style="${last} ? 'display: none;' : 'display:inline-block;margin-left: 20px;'">
+								<input src="https://img.icons8.com/flat_round/64/000000/circled-right-2--v1.png" 
+									   style="margin-right: auto;"
+									   type="image" 
+									   title="Next"/>
+							</form>
+							
+							<form th:action="@{/visitEnd}" style="display:inline-block;padding-top:20px;margin-left: 20px" >
+								<input src="/images/icons8-checkmark-64.png" 
+									   style="margin-right: auto;"
+									   type="image" 
+									   title="End"/>
+							</form>
+							
+						</div>
+						
+						<div class="text-center" style="padding-bottom: 20px">
+							<form  name="form" id="form">
+								  <select id="list" name="list" >
+								  	<option selected></option>
+								    <option th:each="position,iter:${positions}"
+								     th:text="${iter.index + ' - ' + position.poi_name}" th:value="${iter.index}"></option>
+								  </select>
+								  <input style="" value="Jump to" type="submit">
+								</form>
+						</div>
+
+<img style="width: 80%; display: block; margin-left: auto; margin-right: auto;"
+					 th:src="@{'/images/positions/' + ${currentPosition.poi_name} + '.jpg'}">	
+						
+
+					<div class="container"
+						style="width: 80%; display: block; margin-left: auto; margin-right: auto;">
+						<div class="row">
+							<div id="no-more-tables">
+								<table
+									class="col-md-12 table-bordered table-striped table-condensed cf">
+									<tbody>
+										<tr>
+											<td><b>Time of Arrival</b></td>
+											<td data-title="Volume" class="numeric"
+												th:text="${currentPosition.start_time}"></td>
+										</tr>
+										<tr>
+											<td><b>Time of Departure</b></td>
+											<td data-title="Volume" class="numeric"
+												th:text="${currentPosition.end_time}"></td>
+										</tr>
+										<tr>
+											<td><b>Total Time Stayed</b></td>
+											<td data-title="Volume" class="numeric"
+												th:text="${totalTime + ' seconds'}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div class="navbar navbar-default navbar-static-bottom" style="margin-top: 40px">
+						<p class="navbar-text pull-left">Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+	    $("#list").change(function() {
+	    	$("#form").attr("action", $(this).val())
+	    });
+	</script>
+</body>
+</html>

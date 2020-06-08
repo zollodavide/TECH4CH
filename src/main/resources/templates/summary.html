@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<link href="styles.css" rel="stylesheet">
+	<script src="bootsnipp.js"></script>
+	<script src="bootsnipp.min.js"></script>
+</head>
+<body>
+	<script th:inline="javascript">
+		
+	window.onload = function() {
+
+			var pontos = /*[[${stayData}]]*/;
+			var title =  /*[[${titleStay}]]*/;
+			var dos = [];
+			
+
+			function myFunction2(value, index, array) {
+				var yValue;
+				var label;
+				yValue = parseInt(value.y);
+				label = value.x;
+				dos.push({
+					label : label,
+					y : yValue
+				});
+			}
+			var chart = new CanvasJS.Chart("chartContainer1", {
+				theme: "light2", // "light1", "light2", "dark1"
+				animationEnabled: true,
+				title: {
+					text: title
+				},
+				axisX: {
+					title: "Point of Interest",
+				},
+				axisY: {
+					title: "Average Time",
+					suffix: " Seconds"
+				},
+				data: [{
+					type: "bar",
+					yValueFormatString: "## secs",
+					indexLabel: "{y}",
+					dataPoints: dos
+				}]
+			});
+			pontos.forEach(myFunction2);
+			console.log(dos);
+			chart.render();
+			
+			
+			
+			
+			var pontos = /*[[${stayVS}]]*/;
+			var title =  /*[[${titleVS}]]*/;
+			var dos = [];
+
+			var chart2 = new CanvasJS.Chart("chartContainer2", {
+				theme: "light2", // "light1", "dark1", "dark2"
+				animationEnabled: true,
+				title: {
+					text: title
+				},
+				axisX: {
+					labelFontSize: 18
+				},
+				axisY: {
+					title: "Minutes"
+				},
+				data: [{
+					type: "column",
+					indexLabel: "{y}",
+					indexLabelFontSize: 18,
+					yValueFormatString: "# Minutes",
+					dataPoints: dos
+				}]
+			});
+			pontos.forEach(myFunction2);
+			chart2.set("dataPointWidth",150,false);
+			chart2.render();
+			
+
+			
+			
+
+			var pontos = /*[[${watchVS}]]*/;
+			var title =  /*[[${titleVSW}]]*/;
+			var dos = [];
+
+			var chart3 = new CanvasJS.Chart("chartContainer3", {
+				theme: "light2", // "light1", "dark1", "dark2"
+				animationEnabled: true,
+				title: {
+					text: title
+				},
+				axisX: {
+					labelFontSize: 18
+				},
+				axisY: {
+					title: "Minutes"
+				},
+				data: [{
+					type: "column",
+					indexLabel: "{y}",
+					indexLabelFontSize: 18,
+					yValueFormatString: "# Minutes",
+					dataPoints: dos
+				}]
+			});
+			pontos.forEach(myFunction2);
+			chart3.set("dataPointWidth",150,false);
+			chart3.render();
+		}
+	</script>
+	
+	
+	
+	
+	
+	
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;"
+						data-scroll> <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+				
+				
+				
+				
+				<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">Visitor Summary</h1>
+			</div>
+			<div id="no-more-tables">
+				<table
+					class="col-md-12 table-bordered table-striped table-condensed cf">
+					<tbody>
+						<tr>
+							<tr th:switch="${#lists.size(summary.visitors)} >1" th:each="visitor,iter: ${summary.visitors}">
+								<td><b th:text="${'Visitor ID ' + iter.index}"></b></td>
+							    <td th:text="${visitor.id}" />
+							</tr>
+						<tr>
+							<td><b>Group ID</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.visitors[0].group}"></td>
+						</tr>
+						<tr>
+							<td><b>Date</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.visitors[0].date}"></td>
+						</tr>
+						<tr>
+							<td><b>Start Time</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.visitors[0].startTime}"></td>
+						</tr>
+						<tr>
+							<td><b>End Time</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.visitors[0].endTime}"></td>
+						</tr>
+						<tr>
+							<td><b>Total Time Spent</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.minutesSpent + ' minutes'}"></td>
+						</tr>
+						<tr>
+							<td><b>Visited Points of Interest</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${#lists.size(summary.visited_poi)}"></td>
+						</tr>
+						<tr>
+							<td><b>Watched Presentations</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${#lists.size(summary.watched_presentations)}"></td>
+						</tr>
+						<tr>
+							<td><b>Watch Time</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${summary.minutesWatched + ' minutes'}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12"	style="margin-bottom: 70px;">
+		<h2 class="text-center">Visitor Enjoyment</h2>
+		<td th:switch="${summary.sentimentPoints}" >
+			<div th:case="'0'" style="display: flex; justify-content: center; ">
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+			</div>			  
+			<div th:case="'1'" style="display: flex; justify-content: center; ">
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+			</div>	
+			<div th:case="'2'" style="display: flex; justify-content: center; ">
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star_border</i>
+			</div>	
+			<div th:case="'3'" style="display: flex; justify-content: center; ">
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+				<i class="material-icons" style="font-size: 70px; color: yellow">star</i>
+			</div>		    
+		</td>
+	</div>
+	<div id="chartContainer2"
+		style="height: 370px; width: 45%; display: inline-block; justify-content: space-between; margin-bottom: 40px;"></div>
+	<div id="chartContainer3"
+		style="height: 370px; width: 45%; display: inline-block; justify-content: space-between; margin-bottom: 40px;"></div>
+	<div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+
+
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+				
+				
+
+
+
+					
+
+					<div class="navbar navbar-default navbar-static-bottom" style="margin-top: 50px">
+						<p class="navbar-text pull-left" >Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+</body>

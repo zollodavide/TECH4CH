@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="styles.css" rel="stylesheet">
+<script src="bootsnipp.js"></script>
+<script src="bootsnipp.min.js"></script>
+</head>
+<body>
+
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;"
+						data-scroll> <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+
+					<div class="jumbotron text-center">
+						<h1>Welcome to Hecht Museum!</h1>
+						<p>This is a sidebar navigation responsive template built off
+							of Bootstrap 3.0 and simple sidebar template. It includes
+							anchors, scroll spy, smooth scroll, and Awesome icon fonts.</p>
+						<p>
+						
+						<h2>History</h2>
+						<p> The Hecht Museum was established in 1984 by Reuben Hecht,
+						 director of Dagon Silos and a founding member of the University of Haifa Board of Governors
+						For sixty years, Hecht collected archaeological artefacts representing the material culture
+						 of the Land of Israel in ancient times. He was particularly interested in finds from the
+						  Canaanite period to the end of the Byzantine period. Hecht believed that archeology was an
+						   important expression of Zionism and these ancient artifacts were proof of the link between 
+						   the Jewish people and Eretz Israel.
+						</p>
+						<p><a class="text-center" href="Tech4CH_IllustratedUserGuide.pdf">Illustrated User Guide</a></p>
+						<p><a class="text-center" href="Tech4CH_DevelopmentGuide.pdf">Development Guide</a></p>
+						
+					</div>
+					
+					<div class="navbar navbar-default navbar-static-bottom">
+						<p class="navbar-text pull-left">Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="styles.css" rel="stylesheet">
+	<script src="bootsnipp.js"></script>
+	<script src="bootsnipp.min.js"></script>
+</head>
+<body>
+
+	
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;"
+						data-scroll> <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+									<div class="jumbotron text-center">
+				
+				
+				<h2 class="text-center">Replay a Visit</h2>
+	<h3 class="text-center">Search by Visitor ID</h3>
+	
+	<form th:action="@{/replayVisit}" method="post" th:object="${visitor}"  class="text-center">
+		<input type="text" th:field="*{id}">
+		<i class="material-icons" style="font-size: 35px; text-align: center;vertical-align: middle;">person</i>
+		<h3 class="text-center">or</h3>
+		<h3 class="text-center">Search by Group ID</h3>
+		<input type="text" th:field="*{group}">
+		<i class="material-icons" style="font-size: 35px; text-align: center;vertical-align: middle;">group</i> 
+		<div></div>
+		<input type="submit" value="Search" ></input>
+	</form>
+					</div>
+
+					<div class="navbar navbar-default navbar-static-bottom" style="margin-top: 50px">
+						<p class="navbar-text pull-left" >Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>

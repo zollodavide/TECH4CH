@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="styles.css" rel="stylesheet">
+	<script src="bootsnipp.js"></script>
+	<script src="bootsnipp.min.js"></script>
+</head>
+<body>
+
+	<script th:inline="javascript">
+		window.onload = function() {
+
+			var pontos = /*[[${barDp}]]*/;
+			var title1 =  "Top 10 Points Of Interests in terms of Average Stay Time";
+			var maxDate =  /*[[${maxDate}]]*/;
+			var minDate =  /*[[${minDate}]]*/;
+			var dos = [];
+			
+			function myFunction1(value, index, array) {
+				var yValue;
+				var zValue;
+				var label;
+				var name;
+				yValue = parseInt(value.x);
+				zValue = parseInt(value.y);
+				label = parseInt(value.z);
+				if(yValue == 1)
+					name= "MaterialCultures";
+				else if(yValue==2)
+					name="ShipEntrance";
+				else if(yValue==3)
+					name="DuckBoxIvories";
+				else if(yValue==4)
+					name="JewishCoffins";
+				else if(yValue==5)
+					name="Phoenicians";
+				else if(yValue==6)
+					name="ShipFront";
+				else if(yValue==7)
+					name="EntranceReubenHecht";
+				else if(yValue==8)
+					name="SymbolsJewishMenorah";
+				else if(yValue==9)
+					name="JerusalemPhoto";
+				else if(yValue==10)
+					name="PersianCult";
+				
+				
+				dos.push({
+					name: name,
+					x : label,
+					y : yValue,
+					z : zValue
+				});
+			}
+			
+
+			function myFunction2(value, index, array) {
+				var yValue;
+				var label;
+				yValue = parseInt(value.y);
+				label = value.x;
+				dos.push({
+					label : label,
+					y : yValue
+				});
+			}
+			var chart1 = new CanvasJS.Chart("chartContainer1", {
+				theme: "light2", // "light1", "light2", "dark1"
+				animationEnabled: true,
+				title: {
+					text: title1
+				},
+				subtitles: [{
+					text: "From the period: " + minDate + " - " + maxDate
+				}],
+				axisX: {
+					title: "Point of Interest",
+				},
+				axisY: {
+					title: "Average Time",
+					suffix: " Seconds"
+				},
+				data: [{
+					type: "bar",
+					yValueFormatString: "## secs",
+					indexLabel: "{y}",
+					dataPoints: dos
+				}]
+			});
+			pontos.forEach(myFunction2);
+			chart1.render();
+			
+			
+			
+			
+			var pontos = /*[[${pieDp}]]*/;
+			var title2 =  "Top 10 Points Of Interests in terms of visits";
+			var dos = [];
+
+			var chart2 = new CanvasJS.Chart("chartContainer2", {
+				theme: "light2", // "light1", "dark1", "dark2"
+				animationEnabled: true,
+				title: {
+					text: title2
+				},
+				subtitles: [{
+					text: "From the period: " + minDate + " - " + maxDate
+				}],
+				data: [{
+					type: "pie",
+					showInLegend: "true",
+					legendText: "{label}",
+					yValueFormatString: "#,###\"%\"",
+					indexLabelFontSize: 16,
+					indexLabel: "{label} - {y}",
+					dataPoints: dos
+				}]
+			});
+			pontos.forEach(myFunction2);
+			chart2.render();
+			
+			
+			
+			var pontos = /*[[${splineDp}]]*/;
+			var title =  "Average Visitors per Hour";
+			var dos = [];
+
+			var chart3 = new CanvasJS.Chart("chartContainer3", {
+				animationEnabled: true,
+				theme: "light2",
+				title: {
+					text: title
+				},
+				subtitles: [{
+					text: "From the period: " + minDate + " - " + maxDate
+				}],
+				axisY: {
+					includeZero: false,
+					title: "Number Of Visitors"
+				},
+				data: [{
+					type: "splineArea",
+					xValueType: "String",
+					yValueFormatString: "## Visitors",
+					dataPoints: dos
+				}] 
+			});
+			pontos.forEach(myFunction2);
+			chart3.render();
+
+
+			var pontos = /*[[${bubbleDp}]]*/;
+			var title =  "Average Visitors per Room per Hour";
+			var dos = [];
+
+			var chart4 = new CanvasJS.Chart("chartContainer4", {
+				animationEnabled: true,
+				theme: "light2",
+				title: {
+					text: title
+				},
+				subtitles: [{
+					text: "From the period: " + minDate + " - " + maxDate
+				}],
+				  axisY: {
+					    interval: 1,
+					    maximum: 12,
+					    title: "Room",
+					    labelFontColor: "transparent"
+					  },
+				axisX: {
+					title: "Hour",
+					minimum: 9,
+					maximum: 18,
+					interval:1
+				},
+				data: [{
+					type: "bubble",
+					toolTipContent: "<b>{name}</b><br/>Time-Slot: {x}:00<br/> Visitors: {z}",
+					dataPoints: dos
+				}] 
+			});
+
+			pontos.forEach(myFunction1);
+			console.log(dos);
+			chart4.render();
+
+		}
+	</script>
+	
+	
+	
+	
+	
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;">
+						 <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+				
+				
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">Museum Statistics</h1>
+			</div>
+			<div id="no-more-tables">
+				<table
+					class="col-md-12 table-bordered table-striped table-condensed cf">
+					<tbody>
+						<tr>
+							<td><b>Average Stay Time</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${avgStay + ' minutes'}"></td>
+						</tr>
+						<tr>
+							<td><b>Average Number Of Presentations Watched</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${avgPresW}"></td>
+						</tr>
+						<tr>
+							<td><b>Average Watch Time</b></td>
+							<td data-title="Volume" class="numeric"
+								th:text="${avgPresT + ' minutes'}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="text-center">Charts</h2>
+	<div id="chartContainer1" style="height: 370px; width: 90%; margin-bottom: 40px;"></div>
+	<div id="chartContainer2" style="height: 370px; width: 90%; margin-bottom: 40px;"></div>
+	<div id="chartContainer3" style="height: 370px; width: 90%; margin-bottom: 40px;"></div>
+	<div id="chartContainer4" style="height: 370px; width: 90%; margin-bottom: 40px;"></div>
+
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+				
+				
+					<div class="navbar navbar-default navbar-static-bottom" style="margin-top: 50px">
+						<p class="navbar-text pull-left" >Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Tech4CH: Hecht Museum</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<link href="styles.css" rel="stylesheet">
+	<script src="bootsnipp.js"></script>
+	<script src="bootsnipp.min.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper" style="width: 150px">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li class="sidebar-brand"><a th:href="@{/}"
+						style="padding-left: 0;"><span class="fa fa-home solo">Home</span></a>
+					</li>
+					<li>
+						<a style="padding-left: 0;" th:href="@{/summaryForm}" data-scroll>
+							<span class="fa fa-anchor solo">Visitor Summary</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/statistics}" style="padding-left: 0;"
+						data-scroll> <span class="fa fa-anchor solo">Museum
+								Statistics</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/newVisit}" style="padding-left: 0;" data-scroll>
+							<span class="fa fa-anchor solo">Replay Visit</span>
+						</a>
+					</li>
+					</ul>
+			</nav>
+		</div>
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<div class="page-content inset" data-spy="scroll" data-target="#spy">
+				<div class="row">
+
+
+					<h1 class="text-center" >Thanks for	playing the Visit!</h1>
+					<div class="text-center">
+					
+						<form th:action="@{/}" style="padding-top: 20px;">
+							<input type="image" 
+								   src="/images/icons8-home-64.png"
+								   title="Home"
+								   value="Home">
+						</form>
+					</div>
+
+
+					<div class="navbar navbar-default navbar-static-bottom" style="margin-top: 50px">
+						<p class="navbar-text pull-left" >Built by Davide Zollo and
+							Shahrzad Fakour Fard</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+</head>
+<body>
+
+	<script th:inline="javascript">
+		window.onload = function() {
+
+			var pontos = /*[[${pontos}]]*/;
+			var title =  /*[[${title}]]*/;
+			var maxDate =  /*[[${maxDate}]]*/;
+			var minDate =  /*[[${minDate}]]*/;
+			var dos = [];
+
+			function myFunction2(value, index, array) {
+				var yValue;
+				var label;
+				yValue = parseInt(value.y);
+				label = value.x;
+				dos.push({
+					label : label,
+					y : yValue
+				});
+			}
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2",
+				title: {
+					text: title
+				},
+				subtitles: [{
+					text: "From the period: " + minDate + " - " + maxDate
+				}],
+				axisY: {
+					includeZero: false,
+					title: "Number Of Visitors"
+				},
+				data: [{
+					type: "splineArea",
+					xValueType: "String",
+// 					xValueFormatString: "YYYY",
+					yValueFormatString: "## Visitors",
+					dataPoints: dos
+				}] 
+			});
+			pontos.forEach(myFunction2);
+			chart.render();
+
+		}
+	</script>
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+</body>
+</html>
